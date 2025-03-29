@@ -4,37 +4,33 @@ import java.util.stream.Collectors;
 
 public class RelatorioDespesa {
     
-    public void imprimirRelatorio(List<Despesa> despesas) {
+    public void imprimirRelatorio(List<DespesaBase> despesas) {
         System.out.print(gerarRelatorio(despesas));
     }
 
-    private String gerarRelatorio(List<Despesa> despesas) {
+    private String gerarRelatorio(List<DespesaBase> despesas) {
         return cabecalho() + corpo(despesas) + resumo(despesas);
     }
 
     private String cabecalho() {
-        return "---------------------Relatório de Despesas---------------------\n";
+        return "\n\n---------------------Relatório de Despesas---------------------\n\n";
     }
 
-    private String corpo(List<Despesa> despesas) {
+    private String corpo(List<DespesaBase> despesas) {
         return despesas.stream()
-                .map(this::detalharDespesa)
-                .collect(Collectors.joining());
+                .map(DespesaBase::toString)  
+                .collect(Collectors.joining("\n")) + "\n";
     }
 
-    private String detalharDespesa(Despesa despesa) {
-        return despesa.getTipo().getNome() + "\t" + despesa.getValor() + "\t" + (despesa.ehAcimaDoLimite() ? "Gasto acima do limite" : " ") + "\n";
-    }
-
-    private String resumo(List<Despesa> despesas) {
-        return "Total de refeições: " + somarDespesas(despesas, Despesa::ehComida) + "\n" +
+    private String resumo(List<DespesaBase> despesas) {
+        return "\nTotal de refeições: " + somarDespesas(despesas, DespesaBase::ehComida) + "\n" +
                "Total geral: " + somarDespesas(despesas, d -> true) + "\n";
     }
 
-    private int somarDespesas(List<Despesa> despesas, Predicate<Despesa> filtro) {
+    private int somarDespesas(List<DespesaBase> despesas, Predicate<DespesaBase> filtro) {
         return despesas.stream()
                 .filter(filtro)
-                .mapToInt(Despesa::getValor)  
+                .mapToInt(DespesaBase::getValor)  
                 .sum();
     }
 }

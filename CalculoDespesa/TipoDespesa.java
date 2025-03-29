@@ -3,8 +3,6 @@ import static java.lang.Integer.MAX_VALUE;
 
 public enum TipoDespesa {  
 
-    //é uma classe enumerada
-
     JANTAR("Jantar", 5000, true),
     CAFE_DA_MANHA("Café da Manhã", 1000, true),
     ALMOCO("Almoço", 2000, true),
@@ -33,3 +31,6 @@ public enum TipoDespesa {
         return limite;
     }
 }
+
+
+

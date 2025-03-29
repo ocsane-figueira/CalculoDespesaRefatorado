@@ -1,25 +1,10 @@
-public class Despesa {
-    private final TipoDespesa tipo;
-    private final int valor;
-
+public class Despesa extends DespesaBase {
     public Despesa(TipoDespesa tipo, int valor) {
-        this.tipo = tipo;
-        this.valor = valor;
+        super(tipo, valor);
     }
 
-    public TipoDespesa getTipo() {
-        return tipo;
-    }
-
-    public int getValor() {
-        return valor;
-    }
-
+    @Override
     public boolean ehComida() {
-        return tipo.ehComida();
-    }
-
-    public boolean ehAcimaDoLimite() {
-        return valor > tipo.getLimite();
+        return false;
     }
 }
